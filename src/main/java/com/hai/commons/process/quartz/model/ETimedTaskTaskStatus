@@ -1,0 +1,23 @@
+package com.hai.commons.process.quartz.model;
+
+/**
+ * Created by o-zhengzhenhai on 2018/8/30.
+ */
+public enum ETimedTaskTaskStatus {
+    using(1),
+    handup(2),
+    executing(3),
+    stop(0);
+    private int value;
+    private ETimedTaskTaskStatus(int value) {
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+}
