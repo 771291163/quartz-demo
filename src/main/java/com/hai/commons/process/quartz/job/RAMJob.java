@@ -18,6 +18,7 @@ public class RAMJob implements Job {
     @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
 
+        System.out.println("Say hello to Quartz" + new Date());
         _log.info("Say hello to Quartz" + new Date());
     }
 

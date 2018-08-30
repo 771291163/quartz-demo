@@ -17,6 +17,7 @@ import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -41,7 +42,13 @@ public class QuartzHandlerImpl implements IQuartzHandler{
      * Quartz框架是否初始化
      */
     private AtomicBoolean isInitQuartz = new AtomicBoolean(false);
-
+    public QuartzHandlerImpl(){
+        try {
+            iniTask();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void iniTask() throws SchedulerException {
         if (!isInitQuartz.get()){//没有初始化Quartz框架信息
@@ -69,10 +76,11 @@ public class QuartzHandlerImpl implements IQuartzHandler{
         //2.从工厂中获取调度器实例
         scheduler = sf.getScheduler();
         scheduler.start();
+
     }
 
     @Override
-    public Date addTask(TimedTaskDto timedTaskDto) throws ClassNotFoundException, SchedulerException {
+    public Date addTask(TimedTaskDto timedTaskDto) throws SchedulerException {
         Date taskDate = null;
         String taskId = timedTaskDto.getTaskId();
         String jobName = TaskUtil.getJobName(taskId);
@@ -90,7 +98,7 @@ public class QuartzHandlerImpl implements IQuartzHandler{
         Class<Job> jobClass = null;
         try{
             jobClass = (Class<Job>) Class.forName(callBackClassName);
-        }catch (ClassCastException e){
+        }catch (Exception e){
             //處理異常
         }
         Map<String,Object> map = new HashMap<>();
@@ -193,5 +201,9 @@ public class QuartzHandlerImpl implements IQuartzHandler{
     @Override
     public Date getNextFireDate(String taskId) {
         return null;
+    }
+    @Override
+    public List<String> getJobNames() throws SchedulerException {
+        return scheduler.getJobGroupNames();
     }
 }

@@ -3,6 +3,7 @@ package com.hai.commons.process.quartz.task;
 import com.hai.commons.process.quartz.model.dto.ETaskHandleResult;
 import com.hai.commons.process.quartz.model.dto.TimedTaskAddDto;
 import com.hai.commons.process.quartz.model.dto.TimedTaskDto;
+import org.quartz.SchedulerException;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface ITaskHandler {
      * @param timedTaskAddDto
      * @return
      */
-    TimedTaskDto addTask(TimedTaskAddDto timedTaskAddDto);
+    TimedTaskDto addTask(TimedTaskAddDto timedTaskAddDto) throws SchedulerException;
 
     /**
      * 更新调度任务数据
@@ -45,4 +46,5 @@ public interface ITaskHandler {
      */
     List<TimedTaskDto> getAllTasks();
 
+    List<String> getJobNames() throws SchedulerException;
 }

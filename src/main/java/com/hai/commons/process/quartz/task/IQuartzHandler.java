@@ -23,7 +23,7 @@ public interface IQuartzHandler {
      * @param timedTaskDto
      * @return 下次执行时间
      */
-    Date addTask(TimedTaskDto timedTaskDto) throws ClassNotFoundException, SchedulerException;
+    Date addTask(TimedTaskDto timedTaskDto) throws SchedulerException;
 
     /**
      * 删除一个调度任务
@@ -66,4 +66,6 @@ public interface IQuartzHandler {
      * @return
      */
     Date getNextFireDate(String taskId);
+
+    List<String> getJobNames() throws SchedulerException;
 }

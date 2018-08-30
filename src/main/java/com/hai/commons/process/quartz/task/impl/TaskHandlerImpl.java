@@ -6,6 +6,7 @@ import com.hai.commons.process.quartz.model.dto.TimedTaskDto;
 import com.hai.commons.process.quartz.task.IQuartzHandler;
 import com.hai.commons.process.quartz.task.ITaskHandler;
 import com.hai.commons.process.quartz.task.util.TaskUtil;
+import org.quartz.SchedulerException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class TaskHandlerImpl implements ITaskHandler {
     private TaskUtil taskUtil;
 
     @Override
-    public TimedTaskDto addTask(TimedTaskAddDto timedTaskAddDto) {
+    public TimedTaskDto addTask(TimedTaskAddDto timedTaskAddDto) throws SchedulerException {
         /**
          * 1.校验入参参数是否合法
          * 2.封装TimedTaskDto类,将该任务存入数据库并向quartz框架注册该任务
@@ -60,5 +61,10 @@ public class TaskHandlerImpl implements ITaskHandler {
     @Override
     public List<TimedTaskDto> getAllTasks() {
         return null;
+    }
+
+    @Override
+    public List<String> getJobNames() throws SchedulerException {
+        return quartzHandler.getJobNames();
     }
 }
