@@ -25,10 +25,6 @@ CREATE TABLE `qrtz_blob_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of qrtz_blob_triggers
--- ----------------------------
-
--- ----------------------------
 -- Table structure for qrtz_calendars
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_calendars`;
@@ -38,10 +34,6 @@ CREATE TABLE `qrtz_calendars` (
   `calendar` blob NOT NULL,
   PRIMARY KEY (`calendar_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrtz_calendars
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_cron_triggers
@@ -55,11 +47,6 @@ CREATE TABLE `qrtz_cron_triggers` (
   `time_zone_id` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrtz_cron_triggers
--- ----------------------------
-INSERT INTO `qrtz_cron_triggers` VALUES ('dufy_test', 'trigger1', 'group1', '0/2 * * * * ?', 'Asia/Shanghai');
 
 -- ----------------------------
 -- Table structure for qrtz_fired_triggers
@@ -83,11 +70,6 @@ CREATE TABLE `qrtz_fired_triggers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of qrtz_fired_triggers
--- ----------------------------
-INSERT INTO `qrtz_fired_triggers` VALUES ('dufy_test', 'NON_CLUSTERED1480921314227', 'trigger1', 'group1', 'NON_CLUSTERED', '1480922508052', '1480922510000', '5', 'ACQUIRED', null, null, '0', '0');
-
--- ----------------------------
 -- Table structure for qrtz_job_details
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_job_details`;
@@ -106,11 +88,6 @@ CREATE TABLE `qrtz_job_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of qrtz_job_details
--- ----------------------------
-INSERT INTO `qrtz_job_details` VALUES ('dufy_test', 'job1', 'group1', null, 'com.dufy.learn.HelloJob', '0', '0', '0', '0', 0x230D0A234D6F6E204465632030352031353A30303A34332043535420323031360D0A);
-
--- ----------------------------
 -- Table structure for qrtz_locks
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_locks`;
@@ -121,10 +98,6 @@ CREATE TABLE `qrtz_locks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of qrtz_locks
--- ----------------------------
-
--- ----------------------------
 -- Table structure for qrtz_paused_trigger_grps
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
@@ -133,10 +106,6 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
   `trigger_group` varchar(80) NOT NULL,
   PRIMARY KEY (`sched_name`,`trigger_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrtz_paused_trigger_grps
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_scheduler_state
@@ -151,10 +120,6 @@ CREATE TABLE `qrtz_scheduler_state` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of qrtz_scheduler_state
--- ----------------------------
-
--- ----------------------------
 -- Table structure for qrtz_simple_triggers
 -- ----------------------------
 DROP TABLE IF EXISTS `qrtz_simple_triggers`;
@@ -167,10 +132,6 @@ CREATE TABLE `qrtz_simple_triggers` (
   `times_triggered` bigint(20) NOT NULL,
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrtz_simple_triggers
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_simprop_triggers
@@ -193,10 +154,6 @@ CREATE TABLE `qrtz_simprop_triggers` (
   `BOOL_PROP_2` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`sched_name`,`TRIGGER_NAME`,`TRIGGER_GROUP`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of qrtz_simprop_triggers
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for qrtz_triggers
@@ -222,36 +179,31 @@ CREATE TABLE `qrtz_triggers` (
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of qrtz_triggers
--- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('dufy_test', 'trigger1', 'group1', 'job1', 'group1', null, '1480922510000', '1480922508000', '5', 'ACQUIRED', 'CRON', '1480921243000', '0', null, '0', '');
-
 -- -- 以下两个表是业务需要，不是quartz框架必须的
 -- DROP TABLE IF EXISTS `TBL_TIMEDTASK_ENTITY`;
 -- CREATE TABLE `TBL_TIMEDTASK_ENTITY` (
 --   `TASK_ID` VARCHAR(50) PRIMARY KEY NOT NULL,
---   `TASK_NAME` VARCHAR(256) MOT NULL,
+--   `TASK_NAME` VARCHAR(256) NOT NULL,
 --   `TASK_STATUS` INT(11) NOT NULL,
 --   `TASK_TYPE` INT(11) NOT NULL,
 --   `CRON_EXPRESSION` VARCHAR(50),
 --   `CREATOR` VARCHAR(50),
---   `CREATE_TIME` CURRENT_DATE ,
---   `START_TIME` CURRENT_DATE ,
---   `END_TIME` CURRENT_DATE ,
+--   `CREATE_TIME` datetime ,
+--   `START_TIME`  datetime,
+--   `END_TIME` datetime ,
 --   `EXE_TIME` VARCHAR(10),
 --   `TASK_CYCLE` INT(11),
 --   `TASK_CYCLE_VALUE` INT(11),
---   `TASK_PARAMETER` COBOL
+--   `TASK_PARAMETER` BLOB
 -- )ENGINE=InnoDB DEFAULT CHARSET=utf8;
---
---
+-- 
+-- 
 -- DROP TABLE IF EXISTS `TBL_TIMEDTASK_EXECUTERESULT_ENTITY`;
 -- CREATE TABLE `TBL_TIMEDTASK_EXECUTERESULT_ENTITY` (
 --   `RESULT_ID` INT(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
 --   `TASK_ID` VARCHAR(50) NOT NULL,
 --   `EXECUTE_RESULT` INT(11) NOT NULL,
 --   `EXECUTE_DESC` VARCHAR(2000),
---   `END_TIME` CURRENT_DATE
+--   `END_TIME` DATETIME
 -- )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
