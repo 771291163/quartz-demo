@@ -1,16 +1,19 @@
 package com.hai.commons.process.quartz.task.impl;
 
+import com.hai.commons.process.quartz.model.bean.TblTimedTaskEntity;
 import com.hai.commons.process.quartz.model.dto.ETaskHandleResult;
 import com.hai.commons.process.quartz.model.dto.TimedTaskAddDto;
 import com.hai.commons.process.quartz.model.dto.TimedTaskDto;
 import com.hai.commons.process.quartz.task.IQuartzHandler;
 import com.hai.commons.process.quartz.task.ITaskHandler;
+import com.hai.commons.process.quartz.task.service.ITimedTaskService;
 import com.hai.commons.process.quartz.task.util.TaskUtil;
 import org.quartz.SchedulerException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +25,9 @@ public class TaskHandlerImpl implements ITaskHandler {
 
     @Autowired
     private IQuartzHandler quartzHandler;
+
+    @Autowired
+    private ITimedTaskService timedTaskService;
 
     @Autowired
     private TaskUtil taskUtil;
@@ -36,35 +42,43 @@ public class TaskHandlerImpl implements ITaskHandler {
         TimedTaskDto timedTaskDto = new TimedTaskDto();
         BeanUtils.copyProperties(timedTaskAddDto,timedTaskDto);
         timedTaskDto.setTaskId(taskUtil.getUUID());
-        //TODO 数据存入数据库
         Date nextFireTime = quartzHandler.addTask(timedTaskDto);
         timedTaskDto.setNextFireTime(nextFireTime);
-        return timedTaskDto;
+        return timedTaskService.addTask(timedTaskDto);
     }
 
     @Override
     public ETaskHandleResult updateTask(TimedTaskDto timedTaskDto) {
         quartzHandler.updateTask(timedTaskDto);
+        timedTaskService.updateTask(timedTaskDto);
         return ETaskHandleResult.success;
     }
 
     @Override
     public ETaskHandleResult deleteTask(String taskId) {
-        return null;
+        timedTaskService.deleteTask(taskId);
+        return quartzHandler.deleteTask(taskId);
+
     }
 
     @Override
     public TimedTaskDto getTaskByTaskId(String taskId) {
-        return null;
+        TimedTaskDto timedTaskDto = new TimedTaskDto();
+        TblTimedTaskEntity tblTimedTaskEntity = timedTaskService.getTaskById(taskId);
+        BeanUtils.copyProperties(tblTimedTaskEntity,timedTaskDto);
+        return timedTaskDto;
     }
 
     @Override
     public List<TimedTaskDto> getAllTasks() {
-        return null;
+        List<TimedTaskDto> timedTaskDtos = new ArrayList<>();
+        List<TblTimedTaskEntity> timedTaskEntities = timedTaskService.getAllTasks();
+        for (TblTimedTaskEntity timedTaskEntity: timedTaskEntities) {
+            TimedTaskDto timedTaskDto = new TimedTaskDto();
+            BeanUtils.copyProperties(timedTaskEntity, timedTaskDto);
+            timedTaskDtos.add(timedTaskDto);
+        }
+        return timedTaskDtos;
     }
 
-    @Override
-    public List<String> getJobNames() throws SchedulerException {
-        return quartzHandler.getJobNames();
-    }
 }

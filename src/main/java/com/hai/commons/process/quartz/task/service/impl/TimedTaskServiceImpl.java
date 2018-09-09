@@ -6,12 +6,14 @@ import com.hai.commons.process.quartz.task.dao.TimedTaskDao;
 import com.hai.commons.process.quartz.task.service.ITimedTaskService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by o-zhengzhenhai on 2018/8/24.
  */
+@Service
 public class TimedTaskServiceImpl implements ITimedTaskService {
 
     @Autowired
@@ -27,24 +29,23 @@ public class TimedTaskServiceImpl implements ITimedTaskService {
 
     @Override
     public void deleteTask(String taskId) {
-
+        timedTaskDao.deleteTaskById(taskId);
     }
 
     @Override
-    public void updateTask(TimedTaskDto timedTaskDto) {
-
+    public void updateTask(TimedTaskDto timedTaskDto){
+        timedTaskDao.deleteTaskById(timedTaskDto.getTaskId());
+        addTask(timedTaskDto);
     }
 
     @Override
-    public TimedTaskDto getTaskById(String taskId) {
-        TblTimedTaskEntity taskEntity = timedTaskDao.getTaskById(taskId);
-        TimedTaskDto timedTaskDto = new TimedTaskDto();
-        BeanUtils.copyProperties(taskEntity,taskEntity);
-        return timedTaskDto;
+    public TblTimedTaskEntity getTaskById(String taskId) {
+
+        return timedTaskDao.getTaskById(taskId);
     }
 
     @Override
-    public List<TimedTaskDto> getAllTasks() {
-        return null;
+    public List<TblTimedTaskEntity> getAllTasks() {
+        return timedTaskDao.queryAllTasks();
     }
 }

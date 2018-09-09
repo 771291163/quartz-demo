@@ -7,30 +7,69 @@ import java.util.Date;
  */
 public class TblTimedTaskEntity {
 
+    /**
+     * 主键
+     */
     private String taskId;
 
+    /**
+     * 任务名称
+     */
     private String taskName;
 
+    /**
+     * 任务状态
+     */
     private int taskStatus;
 
+    /**
+     * 任务类型
+     */
     private int taskType;
 
+    /**
+     * 表达式
+     */
     private String cronExpression;
 
+    /**
+     * 创建者
+     */
     private String creator;
 
+    /**
+     * 创建时间
+     */
     private Date createTime;
 
+    /**
+     * 开始时间
+     */
     private Date startTime;
 
+    /**
+     * 结束时间
+     */
     private Date endTime;
 
+    /**
+     * 执行时间
+     */
     private String exeTime;
 
+    /**
+     * 执行周期单位
+     */
     private int taskCycle;
 
-    private int taskCycleValue;
+    /**
+     * 执行周期值
+     */
+    private int taskCycleVal;
 
+    /**
+     * 参数
+     */
     private Object taskParameter;
 
     public String getTaskId() {
@@ -121,12 +160,12 @@ public class TblTimedTaskEntity {
         this.taskCycle = taskCycle;
     }
 
-    public int getTaskCycleValue() {
-        return taskCycleValue;
+    public int getTaskCycleVal() {
+        return taskCycleVal;
     }
 
-    public void setTaskCycleValue(int taskCycleValue) {
-        this.taskCycleValue = taskCycleValue;
+    public void setTaskCycleVal(int taskCycleVal) {
+        this.taskCycleVal = taskCycleVal;
     }
 
     public Object getTaskParameter() {

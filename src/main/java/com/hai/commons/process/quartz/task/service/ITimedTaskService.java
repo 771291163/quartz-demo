@@ -1,5 +1,6 @@
 package com.hai.commons.process.quartz.task.service;
 
+import com.hai.commons.process.quartz.model.bean.TblTimedTaskEntity;
 import com.hai.commons.process.quartz.model.dto.TimedTaskDto;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public interface ITimedTaskService {
 
     void updateTask(TimedTaskDto timedTaskDto);
 
-    TimedTaskDto getTaskById(String taskId);
+    TblTimedTaskEntity getTaskById(String taskId);
 
-    List<TimedTaskDto> getAllTasks();
+    List<TblTimedTaskEntity> getAllTasks();
 }

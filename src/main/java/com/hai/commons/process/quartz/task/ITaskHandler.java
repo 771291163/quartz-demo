@@ -45,6 +45,4 @@ public interface ITaskHandler {
      * @return
      */
     List<TimedTaskDto> getAllTasks();
-
-    List<String> getJobNames() throws SchedulerException;
 }
